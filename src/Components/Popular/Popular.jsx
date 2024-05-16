@@ -1,15 +1,25 @@
 import React from 'react';
 import "./Popular.css";
-import data_product from "../Assets/data"
+//  import data_product from "../Assets/data"
 import Item from '../Item/Item';
+import { useState,useEffect } from 'react';
 
 export default function Popular() {
+
+  const [popularProducts,setPopularProducts] = useState([]);
+
+  useEffect(()=>{
+    fetch("http://localhost:4000/popularinwomen")
+    .then((response)=>response.json())
+    .then((data)=>setPopularProducts(data));
+},[]);
+
   return (
     <div className='popular'>
       <h1>POPULAR IN WOMEN</h1>
       <hr />
       <div className="popular-item">
-        {data_product.map((item,i)=>{
+        {popularProducts.map((item,i)=>{
             return <Item 
             key={i} 
             id={item.id} 
